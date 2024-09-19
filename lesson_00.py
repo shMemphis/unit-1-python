@@ -17,4 +17,3 @@ name=input("Tell me your name...")
 print("your name is ",name)
 #step 4+4 (I feel like I will stop here)
 print("T-T")
-while(""):
