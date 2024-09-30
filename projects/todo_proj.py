@@ -18,26 +18,30 @@ def main():
         for task in tasks:
             print(f'- {task.strip()}')  # Display each task on a new line 
 
-    addrrem = input("Would you like to add or remove a task? (type 'LEAVE' to quit): ").strip().lower()
-    
-    if addrrem == "add":
-        addtask = input("Add a task here: ").strip()
-        tasks.append(addtask)  # Added the new task to the list
-        print(f'Task "{addtask}" added.')
-    
-    elif addrrem == "remove":
-        remtask = input("Type the task you want to remove: ").strip()
-        if remtask in tasks:
-            tasks.remove(remtask)  # Removed the task from the list
-            print(f'Task "{remtask}" removed.')
-        else:
-            print(f'Task "{remtask}" not found in the list.')
-    
+        addrrem = input("Would you like to add, remove a task, clear the list, or LEAVE? ").strip().lower()
+        
+        if addrrem == "add":
+            addtask = input("Add a task here: ").strip()
+            tasks.append(addtask + "\n")  # Add the new task to the list
+            print(f'Task "{addtask}" added.')
+        
+        elif addrrem == "remove":
+            remtask = input("Type the task you want to remove: ").strip() + "\n"
+            if remtask in tasks:
+                tasks.remove(remtask)  # Remove the task from the list
+                print(f'Task "{remtask.strip()}" removed.')
+            else:
+                print(f'Task "{remtask.strip()}" not found in the list.')
+        
+        elif addrrem == "clear":
+            tasks.clear()  # Clear the entire task list
+            print("All tasks have been cleared.")
+        
         elif addrrem == "leave":
             with open("todo_proj.txt", "w") as file:
                 file.writelines(tasks)  # Write the current tasks to the file
             print("Exiting the Dawgs To-Do Tracker. Goodbye!")
             break  # Exit the loop
 
-    else:
-        print("Invalid option. Please type 'add', 'remove', or 'LEAVE!'.")
+if __name__ == "__main__":
+    main()
