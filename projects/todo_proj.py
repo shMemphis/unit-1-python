@@ -3,12 +3,21 @@
           #Allow the user to add new todo items
           #Allow the user to remove existing todo items
 #Start!!!
-print("Welcome to the Dawgs To-Do Tracker!!")
-print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-tasks = ["get cash", "spend cash", "play ot7quanny"]
-while True:
-    print('Your current tasks are: ' + ', '.join(tasks))
-    
+def main():
+    # Load existing tasks from file
+    try:
+        with open("todo_proj.txt", "r") as file:
+            tasks = file.readlines()  # Read tasks from the file
+    except FileNotFoundError:
+        tasks = []  # Start with an empty task list if the file doesn't exist
+
+    while True:
+        print("\nWelcome to the Dawgs To-Do Tracker!!")
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('Your current tasks are:')
+        for task in tasks:
+            print(f'- {task.strip()}')  # Display each task on a new line 
+
     addrrem = input("Would you like to add or remove a task? (type 'LEAVE' to quit): ").strip().lower()
     
     if addrrem == "add":
@@ -24,9 +33,11 @@ while True:
         else:
             print(f'Task "{remtask}" not found in the list.')
     
-    elif addrrem == "exit":
-        print("Exiting the Dawgs To-Do Tracker. Til We BARK! Paths Again!")
-        break
-    
+        elif addrrem == "leave":
+            with open("todo_proj.txt", "w") as file:
+                file.writelines(tasks)  # Write the current tasks to the file
+            print("Exiting the Dawgs To-Do Tracker. Goodbye!")
+            break  # Exit the loop
+
     else:
         print("Invalid option. Please type 'add', 'remove', or 'LEAVE!'.")
